@@ -1,9 +1,13 @@
 class Device < ApplicationRecord
   
-  def temperature
-    resp   = DevicesHelper::DATA_PLANE.get_thing_shadow(thing_name: thing_name)
-    shadow = JSON.parse(resp.payload.string)
-    shadow['state']['reported']['temp']
+  after_find :get_shadow
+  attr_accessor :temperature, :timestamp
+  
+  def get_shadow
+    resp             = DevicesHelper::DATA_PLANE.get_thing_shadow(thing_name: self.thing_name)
+    shadow           = JSON.parse(resp.payload.string)
+    self.temperature = shadow['state']['reported']['temp']
+    self.timestamp   = shadow['metadata']['reported']['temp']['timestamp']
   end
   
   def create_rule(display:"TempMonitor", numbers:)
@@ -44,5 +48,10 @@ class Device < ApplicationRecord
   
   def rule_name
     "#{thing_name}_temp_threshold"
+  end
+  
+  def formatted_timestamp
+    t = Time.at timestamp
+    t.strftime("%A, %B %d %Y, %I:%M %p #{t.zone}")
   end
 end

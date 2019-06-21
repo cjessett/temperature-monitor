@@ -1,3 +1,20 @@
 // Place all the styles related to the devices controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+header {
+  font-size: 4em;
+}
+
+#temperature {
+  font-size: 8em;
+}
+
+#units {
+  font-size: .5em;
+  vertical-align: top;
+}
+
+#timestamp {
+  font-size: 1.5em;
+}
