@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-header {
+#temp {
   font-size: 4em;
 }
 
@@ -16,5 +16,9 @@ header {
 }
 
 #timestamp {
-  font-size: 1.5em;
+  font-size: 1em;
+}
+
+#notifications {
+  font-size: 3em;
 }
