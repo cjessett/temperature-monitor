@@ -1,0 +1,16 @@
+<h3 class="font-weight-lighter">Create a Notification</h3>
+<%= simple_form_for Notification.new(device: @device), url: device_notifications_path(@device), method: :post do |f| %>
+  <%= f.input :min, required: true %>
+  <%= f.input :max, required: true %>
+  <div id="numbers">
+    <header class="m-1">Phone Numbers to Notify</header>
+    <div class="number-field">
+      <%= f.input_field :numbers, as: :array, label: false, required: true,
+        pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}",
+        placeholder: "Format: 123-456-7890" %>
+      <span class="tag-remove"></span>
+    </div>
+  </div>
+  <button id="add-phone-button" class="btn btn-link">Add another phone number</button>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>

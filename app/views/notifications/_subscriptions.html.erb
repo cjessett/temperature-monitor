@@ -1,0 +1,14 @@
+<% if @device.notification.subscriptions.any? %>
+  <ol>
+    <% @notification.subscriptions.each do |s| %>
+      <li class="m-2">
+        <span><%= s.data.attributes["Endpoint"] %></span>
+        <%= link_to 'Delete',
+            device_notification_subscription_path(@device, @notification, s.data.attributes["SubscriptionArn"]),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>
+  

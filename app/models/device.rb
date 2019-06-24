@@ -1,4 +1,5 @@
 class Device < ApplicationRecord
+  has_one :notification, dependent: :destroy
   validates :thing_name, presence: true
   after_find :get_shadow
   attr_accessor :temperature, :timestamp, :rule
@@ -14,17 +15,15 @@ class Device < ApplicationRecord
     end
   end
   
-  def create_rule(display:"TempMonitor", numbers:)
+  def create_rule
     begin
-      topic = DevicesHelper.create_sns_topic(thing_name, display)
-      numbers.each { |n| topic.subscribe(protocol: 'sms', endpoint: n) }
       params = {
         rule_name: rule_name,
         topic_rule_payload: {
           sql: build_sql,
           actions: [{
             sns: {
-              target_arn: topic.arn,
+              target_arn: notification.arn,
               role_arn: ENV['SNS_ROLE_ARN'],
               message_format: "RAW",
             }
@@ -34,6 +33,7 @@ class Device < ApplicationRecord
       DevicesHelper::IOT_CLIENT.create_topic_rule(params)
     rescue StandardError => e
       puts "Rescued #{e.inspect}"
+      false
     end
   end
   
@@ -43,15 +43,15 @@ class Device < ApplicationRecord
     <<-SQL
       SELECT VALUE #{attribute}
       FROM '#{topic}'
-      WHERE #{attribute} <= #{min_temp}
-      OR #{attribute} >= #{max_temp}
+      WHERE #{attribute} <= #{notification.min}
+      OR #{attribute} >= #{notification.max}
     SQL
   end
   
   def rule
     @rule ||= get_rule
   end
-  
+
   def get_rule
     begin
       resp = DevicesHelper::IOT_CLIENT.get_topic_rule(rule_name: rule_name)
@@ -68,12 +68,5 @@ class Device < ApplicationRecord
   def formatted_timestamp
     t = Time.at timestamp
     t.strftime("%A, %B %d %Y, %I:%M %p #{t.zone}")
-  end
-  
-  def subscriptions
-    return [] unless rule
-    arn   = rule.actions[0].sns.target_arn
-    topic = Aws::SNS::Topic.new(arn)
-    topic.subscriptions.map { |s| s.data.attributes }
   end
 end

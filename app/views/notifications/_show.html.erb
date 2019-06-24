@@ -1,0 +1,21 @@
+<section class="d-flex flex-column align-items-center font-weight-lighter m-4">
+  <%= render "flash" %>
+  <% unless @device.rule.present? && @device.notification then %>
+    <%= render "notifications/new" %>
+  <% else %>
+    <!-- Notifications -->
+    <header id="notifications">Notifications</header>
+    
+    <section class="d-flex flex-column align-items-center m-3">
+      <header class="m-1">Temperature Threshold</header>
+      <%= render "notifications/edit" %>
+    </section>
+    
+    <!-- Subscribed Phone Numbers -->
+    <section class="d-flex flex-column align-items-center">
+      <header class="m-1">Subscribed Numbers</header>    
+      <%= render "notifications/subscriptions" %>
+      <%= render "notifications/new_subscription" %>
+    </section>
+  <% end %>
+</section>

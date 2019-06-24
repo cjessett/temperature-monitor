@@ -1,8 +1,6 @@
 <!-- Temperature -->
 <section class="d-flex flex-column align-items-center font-weight-lighter mt-4">
-  <header id="temp">
-    Temperature
-  </header>
+  <header id="temp">Temperature</header>
   <!-- Temperature Reading -->
   <section class="p-2">
     <span id="temperature"><%= @device.temperature %><span>
@@ -15,31 +13,4 @@
 </section>
 
 <!-- Notifications -->
-<section class="d-flex flex-column align-items-center font-weight-lighter m-4">
-  <header id="notifications">Notifications</header>
-  <!-- Temperature Threshold -->
-  <section class="d-flex flex-column align-items-center m-3">
-    <header class="m-1">Temperature Threshold</header>    
-    <section class="m-2">
-      <span>
-        <%= label_tag(:min_temp, "Min") %>
-        <%= number_field(:device, :min_temp, class: "w-25") %>
-      </span>
-      <span>
-        <%= label_tag(:max_temp, "Max") %>
-        <%= number_field(:device, :max_temp, class: "w-25") %>
-      </span>
-    </section>
-  </section>
-  <!-- Subscribed Phone Numbers -->
-  <section class="d-flex flex-column align-items-center">
-    <header class="m-1">Subscribed Numbers</header>    
-    <ol>
-      <% @device.subscriptions.each do |s| %>
-        <li class="m-2">
-          <%= telephone_field_tag(s["SubscriptionArn"], s["Endpoint"]) %>
-        </li>
-      <% end %>
-    </ol>
-  </section>
-</section>
+<%= render "notifications/show" %>

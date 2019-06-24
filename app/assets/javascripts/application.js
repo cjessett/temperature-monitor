@@ -14,3 +14,8 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+document.addEventListener('turbolinks:load', function() {
+  document
+    .getElementById('add-phone-button')
+    .addEventListener('click', addPhoneField)
+});

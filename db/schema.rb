@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_025002) do
+ActiveRecord::Schema.define(version: 2019_06_24_200837) do
 
   create_table "devices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "thing_name"
-    t.integer "max_temp"
-    t.integer "min_temp"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "max"
+    t.integer "min"
+    t.integer "device_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "arn"
+    t.index ["device_id"], name: "index_notifications_on_device_id"
   end
 
 end

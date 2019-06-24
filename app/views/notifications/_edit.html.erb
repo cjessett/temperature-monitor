@@ -1,0 +1,7 @@
+<section class="m-2">
+  <%= simple_form_for @notification, url: device_notification_path(@device, @notification), method: :patch do |f| %>
+    <%= f.input :min, required: true %>
+    <%= f.input :max, required: true %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  <% end %>
+</section>

@@ -14,3 +14,12 @@
  *= require_self
  */
 @import "bootstrap";
+
+.number-field:not(:first-of-type) > .tag-remove:before {
+  pointer-events: all;
+  content: "\00d7";
+  font-weight: 300;
+  font-family: Arial, sans-serif;
+  margin: .2em;
+  cursor: pointer;
+}
