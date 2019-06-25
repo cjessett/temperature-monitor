@@ -5,9 +5,7 @@
   <div id="numbers">
     <header class="m-1">Phone Numbers to Notify</header>
     <div class="number-field">
-      <%= f.input_field :numbers, as: :array, label: false, required: true,
-        pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}",
-        placeholder: "Format: 123-456-7890" %>
+      <%= f.input_field :numbers, as: :array, label: false, required: true %>
       <span class="tag-remove"></span>
     </div>
   </div>
