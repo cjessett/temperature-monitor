@@ -1,5 +1,5 @@
 module DevicesHelper
-  DATA_PLANE = Aws::IoTDataPlane::Client.new(endpoint: ENV['ENDPOINT'])
+  DATA_PLANE = Aws::IoTDataPlane::Client.new(endpoint: ENV['ENDPOINT'], region: 'us-west-2')
   IOT_CLIENT = Aws::IoT::Client.new
 
   def self.create_sns_topic(thing_name, display)
