@@ -1,6 +1,5 @@
 <section class="d-flex flex-column align-items-center font-weight-lighter m-4">
-  <%= render "flash" %>
-  <% unless @device.rule.present? && @device.notification then %>
+  <% unless @device.notification.id then %>
     <%= render "notifications/new" %>
   <% else %>
     <!-- Notifications -->

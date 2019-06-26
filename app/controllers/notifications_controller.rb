@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
     if @notification.generate! && @device.create_rule
       flash[:notice] = "Notification created successfully"
     else
-      flash[:error] = @notification.errors.full_messages.to_sentence
+      flash[:alert] = @notification.errors.full_messages.to_sentence
     end
     redirect_to @device
   end
@@ -17,7 +17,7 @@ class NotificationsController < ApplicationController
     if @notification.update(notification_params)
       flash[:notice] = "Notification updated successfully"
     else
-      flash[:error] = @notification.errors.full_messages.to_sentence
+      flash[:alert] = @notification.errors.full_messages.to_sentence
     end
     redirect_to @notification.device
   end

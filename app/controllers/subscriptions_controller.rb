@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
     if @notification.add_subscription(number)
       flash[:notice] = "Subscription Added"
     else
-      flash[:error] = "Something went wrong"
+      flash[:alert] = "Something went wrong"
     end
     redirect_to @device
   end
@@ -15,7 +15,7 @@ class SubscriptionsController < ApplicationController
     if @notification.remove_subscription(params[:id])
       flash[:notice] = "Subscription Removed"
     else
-      flash[:error] = "Something went wrong"
+      flash[:alert] = "Something went wrong"
     end
     redirect_to @device
   end

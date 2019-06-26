@@ -1,4 +1,5 @@
 class Device < ApplicationRecord
+  has_and_belongs_to_many :users
   has_one :notification, dependent: :destroy
   validates :thing_name, presence: true
   after_find :get_shadow
