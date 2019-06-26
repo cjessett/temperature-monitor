@@ -1,0 +1,7 @@
+<section class="d-flex flex-column align-items-center font-weight-lighter m-5">
+  <h5 class="font-weight-lighter">Add a Device</h5>
+  <%= simple_form_for Device.new do |f| %>
+    <%= f.input :thing_name, required: true %>
+    <%= f.button :submit, "Add Device", class: "btn btn-primary" %>
+  <% end %>  
+</section>

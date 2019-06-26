@@ -13,6 +13,7 @@ class Device < ApplicationRecord
       self.timestamp   = shadow['metadata']['reported']['temp']['timestamp']
     rescue StandardError => e
      puts "Rescued #{e.inspect}"
+     false
     end
   end
   

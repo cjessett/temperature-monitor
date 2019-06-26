@@ -1,5 +1,0 @@
-<h3 class="font-weight-lighter">Add a Device</h3>
-<%= simple_form_for Device.new, url: new_device_path, method: :post do |f| %>
-  <%= f.input :thing_name, required: true %>
-  <%= f.button :submit, class: "btn btn-primary" %>
-<% end %>

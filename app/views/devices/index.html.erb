@@ -1,7 +1,7 @@
 <h1 class="font-weight-lighter text-center">Devices</h1>
 <section class="d-flex justify-content-center">
-  <% unless @devices.empty? then %>
-    <%= render "devices/show" %>
+  <% if @devices.blank? %>
+    <%= render "devices/add_device" %>
   <% else %>
     <% @devices.each do |device| %>
       <section class="card">
