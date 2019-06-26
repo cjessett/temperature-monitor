@@ -2,6 +2,7 @@ class Notification < ApplicationRecord
   belongs_to :device
   validates :arn, :min, :max, presence: true
   validate :min_cannot_be_greater_than_max
+  after_update :update_rule
   attr_accessor :numbers, :subscriptions
   
   def generate!(name = "TempMonitor")
@@ -12,6 +13,10 @@ class Notification < ApplicationRecord
   
   def topic
     Aws::SNS::Topic.new(arn)
+  end
+  
+  def update_rule
+    self.device.update_rule
   end
   
   def subscriptions

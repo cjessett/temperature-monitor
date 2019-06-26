@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
   
   def update
     @notification = Notification.find(params[:id])
-    if @notification.update(notification_params)
+    if @notification.update(notification_params) && 
       flash[:notice] = "Notification updated successfully"
     else
       flash[:alert] = @notification.errors.full_messages.to_sentence

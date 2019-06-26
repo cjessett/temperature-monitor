@@ -16,25 +16,36 @@ class Device < ApplicationRecord
     end
   end
   
+  def rule_params
+    {
+      rule_name: rule_name,
+      topic_rule_payload: {
+        sql: build_sql,
+        actions: [{
+          sns: {
+            target_arn: notification.arn,
+            role_arn: ENV['SNS_ROLE_ARN'],
+            message_format: "RAW",
+          }
+        }]
+      }
+    }
+  end
+  
   def create_rule
     begin
-      params = {
-        rule_name: rule_name,
-        topic_rule_payload: {
-          sql: build_sql,
-          actions: [{
-            sns: {
-              target_arn: notification.arn,
-              role_arn: ENV['SNS_ROLE_ARN'],
-              message_format: "RAW",
-            }
-          }]
-        }
-      }
-      DevicesHelper::IOT_CLIENT.create_topic_rule(params)
+      DevicesHelper::IOT_CLIENT.create_topic_rule(rule_params)
     rescue StandardError => e
       puts "Rescued #{e.inspect}"
       false
+    end
+  end
+  
+  def update_rule
+    begin
+      DevicesHelper::IOT_CLIENT.replace_topic_rule(rule_params)
+    rescue StandardError => e
+      puts "Rescued #{e.inspect}"
     end
   end
   
