@@ -12,8 +12,7 @@ class Device < ApplicationRecord
       self.temperature = shadow['state']['reported']['temp']
       self.timestamp   = shadow['metadata']['reported']['temp']['timestamp']
     rescue StandardError => e
-     puts "Rescued #{e.inspect}"
-     false
+      puts "Rescued #{e.inspect}"
     end
   end
   

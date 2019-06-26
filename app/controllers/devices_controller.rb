@@ -2,13 +2,9 @@ class DevicesController < ApplicationController
   before_action :authenticate_user!
   
   def create
-    @device = Device.find_by(device_params)
-    if @device.present?
-      @device.users << current_user
-      flash[:notice] = "Successfully added device!"
-    else
-      flash[:alert] = "That device doesn't exist"
-    end
+    device = Device.find_or_create_by(device_params)
+    device.users << current_user
+    flash[:notice] = "Successfully added device!"
     redirect_to action: "index"
   end
 
