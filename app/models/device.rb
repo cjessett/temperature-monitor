@@ -77,8 +77,8 @@ class Device < ApplicationRecord
     "#{thing_name}_temp_threshold"
   end
   
-  def formatted_timestamp
-    t = Time.at timestamp
+  def last_updated
+    t = Time.at(timestamp).in_time_zone("Pacific Time (US & Canada)")
     t.strftime("%A, %B %d %Y, %I:%M %p #{t.zone}")
   end
 end
